@@ -14,7 +14,6 @@ public class HelloController {
         model.addAttribute("data", "hello!!");
         return "hello";
 
-
     }
 
     @GetMapping("hello-MVC")
