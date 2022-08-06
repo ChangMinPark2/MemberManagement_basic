@@ -1,33 +1,27 @@
 package hello2.hellospring2.service;
 
 import hello2.hellospring2.domain.Member;
+import hello2.hellospring2.repository.MemberRepository;
 import hello2.hellospring2.repository.MemoryMemberRepository;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.fail;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
-
-
-class MemberServiceTest {
+@SpringBootTest
+@Transactional
+class MemberServiceIntegrationTest {
     //테스트는 과감하게 한글로 바꿔도 된다
-    MemberService memberService;
-    MemoryMemberRepository memberRepository;
+    @Autowired MemberService memberService;
+    @Autowired MemberRepository memberRepository;
 
-    @BeforeEach
-    public void beforeEach() {
-        memberRepository = new MemoryMemberRepository();
-         memberService = new MemberService(memberRepository);
-    }
 
-    @AfterEach
-    public void afterEach(){
-        memberRepository.clearStore();
-    }
+
     @Test
     void 회원가입() {
         //givem
@@ -59,12 +53,5 @@ class MemberServiceTest {
         }
 
         //then
-    }
-    @Test
-    void findMembers() {
-    }
-
-    @Test
-    void findOne() {
     }
 }
