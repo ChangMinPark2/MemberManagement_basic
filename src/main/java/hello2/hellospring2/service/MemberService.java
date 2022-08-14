@@ -21,10 +21,20 @@ public class MemberService {
 
     //회원가입 메소드
     public long join(Member member) {
+
+        long start = System.currentTimeMillis();
         //같은 이름이 있는 중복회원은 안된다. (기본키가 이름으로 만든 예를 든것)
-        validateDuplicateMember(member);    // 중복회원검증
-        memberRepository.save(member);
-        return member.getId();
+        try{
+            validateDuplicateMember(member);    // 중복회원검증
+            memberRepository.save(member);
+            return member.getId();
+        } finally {
+            long finish = System.currentTimeMillis();
+            long timeMs = finish - start;
+            System.out.println("join = " + timeMs + "ms");
+
+        }
+
     }
 
     private void validateDuplicateMember(Member member) {
@@ -35,7 +45,16 @@ public class MemberService {
     }
     // 전체회원조회
     public List<Member> findMembers() {
-       return memberRepository.findAll();
+        long start = System.currentTimeMillis();
+        try{
+            return memberRepository.findAll();
+        } finally {
+            long finish = System.currentTimeMillis();
+            long timeMs = finish - start;
+            System.out.println("findMembers = " + timeMs + "ms");
+
+        }
+
     }
 
     public Optional<Member> findOne(Long memberId) {
